@@ -3,14 +3,13 @@
  * 背单词的业务逻辑
  */
 
-//import WordsData from "./WordsData.js"
+import WordsData from "./app/data/WordsData.js"
 
 class GameObject {
     constructor() {
 
-        var WordsData = require('./WordsData')
-        this.words = new WordsData().getWordsByUnit(1);
-        console.log("The count of words is " + this.words.length );
+        this.words = Array.from(new WordsData().getWordsByUnit(4));
+        console.log("The count of words is " + this.words.length);
         this.currentIndex = 0;
     }
 
@@ -19,29 +18,35 @@ class GameObject {
         //this.currentWord = this.words[0];
     }
 
-    isEnd(){
-        return this.currentIndex > this.words.length - 1;
+    isEnd() {
+        return this.currentIndex == this.words.length - 1;
     }
-    forward(){
-        if( this.isEnd() ){
+    end(){
+
+    }
+
+    forward() {
+        if (this.isEnd()) {
             console.log("本单元单词背完了");
             this.currentIndex = 0;
-        }else{
+        } else {
             this.currentIndex++;
         }
     }
-    backward(){
-        if( this.currentIndex == 0 ){
+
+    backward() {
+        if (this.currentIndex == 0) {
             return;
         }
         this.currentIndex--;
     }
+
     giveMeAWord() {
 
         let word = this.words[this.currentIndex];
         let wordData = word.split(" ");
         //console.log( wordData[1] );
-        return { word: wordData[0], symbol: wordData[1], mean: wordData[2]};
+        return {word: wordData[0], symbol: wordData[1], mean: wordData[2]};
         //var pos = Math.floor(Math.random() * this.words.length);
         //this.currentWord = this.words[pos];
         //
